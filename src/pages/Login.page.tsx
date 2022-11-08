@@ -13,6 +13,13 @@ const Login = () => {
             />
           </div>
           <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+            <div className="hero container max-w-screen-lg mx-auto pb-10">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4IVkhcVJpjizWZRNBr666ih_JbFQeVKwugXMLNEKD3I7lhAsauKLHpABvkMOIkPI_Q0g&usqp=CAU"
+                className="mx-auto w-48"
+                alt="Login"
+              />
+            </div>
             <LoginForm />
           </div>
         </div>
