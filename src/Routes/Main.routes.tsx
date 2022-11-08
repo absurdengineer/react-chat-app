@@ -10,7 +10,7 @@ import Profile from "../pages/Profile.page";
 import Register from "../pages/Register.page";
 
 const MainRoutes = () => {
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   return (
     <Routes>
       <Route path="/auth">
