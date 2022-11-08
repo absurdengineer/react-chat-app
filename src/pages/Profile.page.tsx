@@ -3,7 +3,9 @@ import * as React from "react";
 const Profile = () => {
   return (
     <>
-      <h1>Profile Page</h1>
+      <div className="text-red-700 px-4 py-3" role="alert">
+        <strong className="font-bold">Profile!</strong>
+      </div>
     </>
   );
 };
