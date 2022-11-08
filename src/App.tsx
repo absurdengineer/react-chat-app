@@ -1,11 +1,13 @@
-import React from "react";
+import AuthContextProvider from "./contexts/Auth.context";
+
 import "./App.css";
+import MainRoutes from "./Routes/Main.routes";
 
 function App() {
   return (
-    <>
-      <h1>Hello Worlld to Typescript</h1>
-    </>
+    <AuthContextProvider>
+      <MainRoutes></MainRoutes>
+    </AuthContextProvider>
   );
 }
 
