@@ -2,6 +2,13 @@ import { ChangeEvent, SyntheticEvent, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../contexts/Auth.context";
+import {
+  HandleChange,
+  HandleSubmit,
+  NoIO,
+  Validate,
+} from "../types/functions.types";
+import FormInput from "./FormInput.component";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +22,7 @@ const LoginForm = () => {
   });
   const { setAuth } = useContext(AuthContext);
 
-  const validateInput = () => {
+  const validateInput: Validate = () => {
     let identifierError = "",
       passwordError = "";
     const passwordReg = /^[a-zA-Z0-9]{8,}$/;
@@ -32,21 +39,21 @@ const LoginForm = () => {
     return identifierError || passwordError;
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange: HandleChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
 
-  const handleCheck = () => {
+  const handleCheck: NoIO = () => {
     setFormData({
       ...formData,
       rememberMe: !formData.rememberMe,
     });
   };
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit: HandleSubmit = (event) => {
     toast.dismiss();
     event.preventDefault();
     if (validateInput()) return toast.error("Validation Error Occured");
@@ -71,44 +78,22 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       {/* Identifier input */}
-      <div className="mb-6">
-        <input
-          type="text"
-          className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          id="identifier"
-          name="identifier"
-          onChange={handleChange}
-          placeholder="Username/Email address*"
-        />
-        {errors.identifierError && (
-          <div
-            className="rounded-lg py-1  mt-1 text-base text-red-500"
-            role="alert"
-          >
-            {errors.identifierError}
-          </div>
-        )}
-      </div>
-
+      <FormInput
+        name="identifier"
+        value={formData.identifier}
+        handleChange={handleChange}
+        placeholder="Username/Email address*"
+        error={errors.identifierError}
+      />
       {/* Password input */}
-      <div className="mb-6">
-        <input
-          type="password"
-          className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          id="password"
-          name="password"
-          onChange={handleChange}
-          placeholder="Password*"
-        />
-        {errors.passwordError && (
-          <div
-            className="rounded-lg py-1  mt-1 text-base text-red-500"
-            role="alert"
-          >
-            {errors.passwordError}
-          </div>
-        )}
-      </div>
+      <FormInput
+        name="password"
+        type="password"
+        value={formData.password}
+        handleChange={handleChange}
+        placeholder="Password*"
+        error={errors.passwordError}
+      />
 
       <div className="flex justify-between items-center mb-6">
         <div className="form-group form-check">

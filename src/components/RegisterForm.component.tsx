@@ -44,7 +44,7 @@ const RegisterForm = () => {
     return emailError || passwordError || nameError || usernameError;
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
@@ -56,7 +56,7 @@ const RegisterForm = () => {
     event.preventDefault();
     if (validateInput()) return toast.error("Validation Error");
     console.log(formData);
-    navigate("/auth/login");
+    navigate("/auth/verify");
     toast.success("User Registered Successfully!");
   };
 

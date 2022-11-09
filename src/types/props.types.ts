@@ -18,3 +18,12 @@ export interface FormInputProps {
   placeholder?: string;
   error?: string | null;
 }
+
+export interface OtpInputProps {
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: string | number;
+  name: string;
+  maxLength?: number;
+  type?: string;
+  placeholder?: string;
+}

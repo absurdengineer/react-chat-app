@@ -8,6 +8,7 @@ import Login from "../pages/Login.page";
 import NotFound from "../pages/NotFound.page";
 import Profile from "../pages/Profile.page";
 import Register from "../pages/Register.page";
+import Verify from "../pages/Verify.page";
 
 const MainRoutes = () => {
   const { auth } = useContext(AuthContext);
@@ -21,6 +22,10 @@ const MainRoutes = () => {
         <Route
           path="register"
           element={<UnAuthenticatedRoute auth={auth} outlet={<Register />} />}
+        />
+        <Route
+          path="verify"
+          element={<UnAuthenticatedRoute auth={auth} outlet={<Verify />} />}
         />
         <Route index element={<Navigate to="/auth/login" />} />
         <Route path="*" element={<Navigate to="/auth/login" />} />
