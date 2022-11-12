@@ -1,0 +1,9 @@
+{
+  "fields": {
+    "password": "Clave",
+    "username/email": "Nombre de usuario/Correo Electronico"
+  },
+  "texts": {
+    "language": "Idioma"
+  }
+}

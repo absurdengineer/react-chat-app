@@ -1,5 +1,6 @@
 import { authKey } from "../constants/constants";
-import { Auth } from "../types/user.types";
+import { Auth, RegisterData } from "../types/user.types";
+import httpService from "./http.service";
 import {
   getLocalData,
   removeLocalData,
@@ -19,6 +20,10 @@ export const getAuth = (): Auth => {
 export const login = (data: any, rememberMe: boolean = false): void => {
   if (rememberMe) setLocalData(authKey, JSON.stringify(data));
   else setSessionData(authKey, JSON.stringify(data));
+};
+
+export const register = (data: RegisterData) => {
+  return httpService.post(`/auth/register`, data);
 };
 
 export const logout = (): void => {

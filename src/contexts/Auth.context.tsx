@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 import { getAuth, login, logout } from "../services/auth.service";
-import { AuthContextProps } from "../types/props.types";
+import { ContextProps } from "../types/props.types";
 import { Auth } from "../types/user.types";
 
 export const AuthContext = createContext<{
@@ -9,7 +9,7 @@ export const AuthContext = createContext<{
 }>({ auth: null, setAuth: null });
 const authData: Auth | null = getAuth();
 
-const AuthContextProvider = (props: AuthContextProps) => {
+const AuthContextProvider = (props: ContextProps) => {
   const authReducer = (state: any, action: any) => {
     switch (action.type) {
       case "LOGIN":

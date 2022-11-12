@@ -1,7 +1,8 @@
-import { ChangeEvent, SyntheticEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../contexts/Auth.context";
+import { LocaleContext } from "../contexts/Locale.context";
 import {
   HandleChange,
   HandleSubmit,
@@ -21,6 +22,7 @@ const LoginForm = () => {
     passwordError: "",
   });
   const { setAuth } = useContext(AuthContext);
+  const { translate } = useContext(LocaleContext);
 
   const validateInput: Validate = () => {
     let identifierError = "",
@@ -82,7 +84,7 @@ const LoginForm = () => {
         name="identifier"
         value={formData.identifier}
         handleChange={handleChange}
-        placeholder="Username/Email address*"
+        placeholder={translate("fields.username/email") + "*"}
         error={errors.identifierError}
       />
       {/* Password input */}
@@ -91,7 +93,7 @@ const LoginForm = () => {
         type="password"
         value={formData.password}
         handleChange={handleChange}
-        placeholder="Password*"
+        placeholder={translate("fields.password") + "*"}
         error={errors.passwordError}
       />
 

@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import AuthenticatedRoute from "../components/AuthenticatedRoute.component";
 import UnAuthenticatedRoute from "../components/UnAuthenticatedRoute.component";
 import { AuthContext } from "../contexts/Auth.context";
+import AuthLayout from "../layouts/Auth.layout";
 import Dashboard from "../pages/Dashboard.page";
 import Login from "../pages/Login.page";
 import NotFound from "../pages/NotFound.page";
@@ -14,7 +15,7 @@ const MainRoutes = () => {
   const { auth } = useContext(AuthContext);
   return (
     <Routes>
-      <Route path="/auth">
+      <Route path="/auth" element={<AuthLayout />}>
         <Route
           path="login"
           element={<UnAuthenticatedRoute auth={auth} outlet={<Login />} />}

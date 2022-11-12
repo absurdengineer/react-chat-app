@@ -1,6 +1,7 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { register } from "../services/auth.service";
 import FormInput from "./FormInput.component";
 
 const RegisterForm = () => {
@@ -51,13 +52,19 @@ const RegisterForm = () => {
     });
   };
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     toast.dismiss();
     event.preventDefault();
     if (validateInput()) return toast.error("Validation Error");
-    console.log(formData);
-    navigate("/auth/verify");
-    toast.success("User Registered Successfully!");
+    try {
+      const resp = await register(formData);
+      console.log(resp);
+      navigate("/auth/verify");
+      toast.success("User Registered Successfully!");
+    } catch (error) {
+      toast.error("Internal Server Error");
+      console.log(error);
+    }
   };
 
   return (

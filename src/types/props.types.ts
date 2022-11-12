@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { Auth } from "./user.types";
 
-export interface AuthContextProps {
+export interface ContextProps {
   children: JSX.Element;
 }
 
@@ -26,4 +26,12 @@ export interface OtpInputProps {
   maxLength?: number;
   type?: string;
   placeholder?: string;
+}
+
+export interface DropdownProps {
+  options: { name: string; value: string }[];
+  value: string;
+  resourceName: string;
+  closeOnClick?: boolean;
+  handleClick: (newValue: string) => void;
 }

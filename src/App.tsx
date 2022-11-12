@@ -1,15 +1,18 @@
-import AuthContextProvider from "./contexts/Auth.context";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
 import MainRoutes from "./Routes/Main.routes";
+import AuthContextProvider from "./contexts/Auth.context";
+import LocaleContextProvider from "./contexts/Locale.context";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
       <ToastContainer autoClose={3000} theme="colored" />
       <AuthContextProvider>
-        <MainRoutes></MainRoutes>
+        <LocaleContextProvider>
+          <MainRoutes></MainRoutes>
+        </LocaleContextProvider>
       </AuthContextProvider>
     </>
   );
