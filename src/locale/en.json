@@ -1,9 +1,26 @@
 {
   "fields": {
     "password": "Password",
-    "username/email": "Username/Email Address"
+    "username/email": "Username/Email Address",
+    "name": "Name",
+    "username": "Username",
+    "email": "Email Address"
   },
   "texts": {
-    "language": "Language"
+    "language": "Language",
+    "register": "Register",
+    "login": "Login",
+    "already-have-account": "Already have an account?",
+    "verify-email": "Verify Email",
+    "enter-otp-received": "Enter the OTP you received at",
+    "resend-otp": "Resend OTP",
+    "verify": "Verify"
+  },
+  "errors": {
+    "internal-server-error": "Internal Server Error",
+    "network-server-down": "Network / Server down"
+  },
+  "codes": {
+    "200": "User with provided email already exist"
   }
 }

@@ -24,7 +24,10 @@ export const availableLocales = [
   },
 ];
 
-export const $t = (path: string, locale: string = defaultLocale): string => {
+export const translate = (
+  path: string,
+  locale: string = defaultLocale
+): string => {
   const message = path
     .split(".")
     .reduce((o: any, p) => (o[p] ? o[p] : path), locales[locale]);
@@ -35,7 +38,7 @@ const locale = {
   availableLocales,
   defaultLocale,
   fallbackLocale,
-  $t,
+  translate,
 };
 
 export default locale;

@@ -1,5 +1,5 @@
 import { authKey } from "../constants/constants";
-import { Auth, RegisterData } from "../types/user.types";
+import { Auth, RegisterData, VerifyData } from "../types/user.types";
 import httpService from "./http.service";
 import {
   getLocalData,
@@ -24,6 +24,10 @@ export const login = (data: any, rememberMe: boolean = false): void => {
 
 export const register = (data: RegisterData) => {
   return httpService.post(`/auth/register`, data);
+};
+
+export const verifyUser = (data: VerifyData) => {
+  return httpService.post(`/auth/verify/${data.id}`, { code: data.code });
 };
 
 export const logout = (): void => {

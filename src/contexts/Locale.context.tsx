@@ -1,12 +1,12 @@
 import { createContext, useReducer } from "react";
-import { $t, defaultLocale } from "../locale";
+import { translate, defaultLocale } from "../locale";
 import { ContextProps } from "../types/props.types";
 
 export const LocaleContext = createContext<{
   locale: string;
   setLocale: any;
-  translate: (path: string) => string;
-}>({ locale: defaultLocale, translate: (path) => "", setLocale: null });
+  $t: (path: string) => string;
+}>({ locale: defaultLocale, $t: (path) => "", setLocale: null });
 
 const LocaleContextProvider = (props: ContextProps) => {
   const localeReducer = (state: any, action: any) => {
@@ -21,12 +21,12 @@ const LocaleContextProvider = (props: ContextProps) => {
   };
   const [locale, dispatch] = useReducer(localeReducer, defaultLocale);
 
-  const translate = (path: string) => {
-    return $t(path, locale);
+  const $t = (path: string) => {
+    return translate(path, locale);
   };
 
   return (
-    <LocaleContext.Provider value={{ locale, translate, setLocale: dispatch }}>
+    <LocaleContext.Provider value={{ locale, $t, setLocale: dispatch }}>
       {props.children}
     </LocaleContext.Provider>
   );

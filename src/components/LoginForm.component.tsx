@@ -22,7 +22,7 @@ const LoginForm = () => {
     passwordError: "",
   });
   const { setAuth } = useContext(AuthContext);
-  const { translate } = useContext(LocaleContext);
+  const { $t } = useContext(LocaleContext);
 
   const validateInput: Validate = () => {
     let identifierError = "",
@@ -84,7 +84,7 @@ const LoginForm = () => {
         name="identifier"
         value={formData.identifier}
         handleChange={handleChange}
-        placeholder={translate("fields.username/email") + "*"}
+        placeholder={$t("fields.username/email") + "*"}
         error={errors.identifierError}
       />
       {/* Password input */}
@@ -93,7 +93,7 @@ const LoginForm = () => {
         type="password"
         value={formData.password}
         handleChange={handleChange}
-        placeholder={translate("fields.password") + "*"}
+        placeholder={$t("fields.password") + "*"}
         error={errors.passwordError}
       />
 

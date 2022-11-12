@@ -16,3 +16,8 @@ export interface RegisterData {
   username: string;
   password: string;
 }
+
+export interface VerifyData {
+  id: string;
+  code: number;
+}

@@ -1,6 +1,7 @@
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { LocaleContext } from "../contexts/Locale.context";
 import { register } from "../services/auth.service";
 import FormInput from "./FormInput.component";
 
@@ -18,6 +19,7 @@ const RegisterForm = () => {
     nameError: "",
   });
   const navigate = useNavigate();
+  const { $t } = useContext(LocaleContext);
 
   const validateInput = () => {
     let emailError = "",
@@ -59,10 +61,18 @@ const RegisterForm = () => {
     try {
       const resp = await register(formData);
       console.log(resp);
-      navigate("/auth/verify");
+      navigate("/auth/verify", {
+        state: {
+          id: resp.data.data.id,
+          email: resp.data.data.email,
+        },
+      });
       toast.success("User Registered Successfully!");
-    } catch (error) {
-      toast.error("Internal Server Error");
+    } catch (error: any) {
+      if (!error.response) return toast.error($t("errors.network-server-down"));
+      if (error.response.status < 500)
+        return toast.error($t(`codes.${error.response?.data?.code}`));
+      toast.error($t("errors.internal-server-error"));
       console.log(error);
     }
   };
@@ -74,7 +84,7 @@ const RegisterForm = () => {
         name="name"
         value={formData.name}
         handleChange={handleChange}
-        placeholder="Name"
+        placeholder={$t("fields.name")}
         error={errors.nameError}
       />
       {/* Username input */}
@@ -82,7 +92,7 @@ const RegisterForm = () => {
         name="username"
         value={formData.username}
         handleChange={handleChange}
-        placeholder="Username"
+        placeholder={$t("fields.username")}
         error={errors.usernameError}
       />
       {/* Email input */}
@@ -90,7 +100,7 @@ const RegisterForm = () => {
         name="email"
         value={formData.email}
         handleChange={handleChange}
-        placeholder="Email Address"
+        placeholder={$t("fields.email")}
         error={errors.emailError}
       />
       {/* Password input */}
@@ -99,7 +109,7 @@ const RegisterForm = () => {
         type="password"
         value={formData.password}
         handleChange={handleChange}
-        placeholder="Password"
+        placeholder={$t("fields.password")}
         error={errors.passwordError}
       />
       <div className="text-center lg:text-left">
@@ -107,15 +117,15 @@ const RegisterForm = () => {
           type="submit"
           className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
         >
-          Register
+          {$t("texts.register")}
         </button>
         <p className="text-sm font-semibold mt-2 pt-1 mb-0">
-          Already have an account?
+          {$t("texts.already-have-account")}
           <Link
             className="ml-1 text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
             to="/auth/login"
           >
-            Login
+            {$t("texts.login")}
           </Link>
         </p>
       </div>
