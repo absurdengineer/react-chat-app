@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../contexts/Auth.context";
 import { LocaleContext } from "../contexts/Locale.context";
-import httpService from "../services/http.service";
+import { login } from "../services/auth.service";
 import {
   HandleChange,
   HandleSubmit,
@@ -62,10 +62,7 @@ const LoginForm = () => {
     if (validateInput()) return toast.error("Validation Error Occured");
     try {
       const { identifier, password } = formData;
-      const { data } = await httpService.post(`/auth/login`, {
-        identifier,
-        password,
-      });
+      const { data } = await login({ identifier, password });
       setAuth({
         type: "LOGIN",
         payload: {
@@ -73,12 +70,13 @@ const LoginForm = () => {
           rememberMe: formData.rememberMe,
         },
       });
+      toast.success($t(`codes.${data?.code}`));
     } catch (error: any) {
       if (!error.response) return toast.error($t("errors.network-server-down"));
       if (error.response.status < 500)
         return toast.error($t(`codes.${error.response?.data?.code}`));
       toast.error($t("errors.internal-server-error"));
-      console.log(error.response);
+      console.log(error);
     }
   };
 
@@ -126,7 +124,7 @@ const LoginForm = () => {
       <div className="text-center lg:text-left">
         <button
           type="submit"
-          className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+          className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
         >
           {$t("texts.login")}
         </button>

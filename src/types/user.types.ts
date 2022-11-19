@@ -18,9 +18,24 @@ export interface RegisterData {
   password: string;
 }
 
+export interface LoginData {
+  identifier: string;
+  password: string;
+}
+
 export interface VerifyData {
   id: string;
   code: number;
+}
+
+export interface ForgotPasswordData {
+  email: string;
+}
+
+export interface ResetPasswordData {
+  id: string;
+  code: number;
+  password: string;
 }
 
 export interface ForgotPassword {

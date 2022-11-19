@@ -1,15 +1,18 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LocaleContext } from "../contexts/Locale.context";
 import { HandleChange, HandleSubmit } from "../types/functions.types";
 import FormInput from "./FormInput.component";
 import Joi from "joi";
 import { ForgotPassword } from "../types/user.types";
+import { toast } from "react-toastify";
+import { forgotPassword } from "../services/auth.service";
 
 const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const { $t } = useContext(LocaleContext);
+  const navigate = useNavigate();
 
   const validateForgotPassword = (forgotPassword: ForgotPassword) => {
     const forgotPasswordSchema = Joi.object({
@@ -40,10 +43,26 @@ const ForgotPasswordForm = () => {
   const handleChange: HandleChange = (event) => {
     setEmail(event.target.value);
   };
-  const handleSubmit: HandleSubmit = (event) => {
+
+  const handleSubmit: HandleSubmit = async (event) => {
     event.preventDefault();
     const valid = validateForgotPassword({ email });
     if (!valid) return;
+    try {
+      const { data } = await forgotPassword({ email });
+      toast.success($t(`codes.${data?.code}`));
+      navigate("/auth/reset-password", {
+        state: {
+          id: data.data,
+        },
+      });
+    } catch (error: any) {
+      if (!error.response) return toast.error($t("errors.network-server-down"));
+      if (error.response.status < 500)
+        return toast.error($t(`codes.${error.response?.data?.code}`));
+      toast.error($t("errors.internal-server-error"));
+      console.log(error);
+    }
   };
 
   return (
@@ -60,7 +79,7 @@ const ForgotPasswordForm = () => {
       <div className="text-center lg:text-left">
         <button
           type="submit"
-          className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+          className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
         >
           {$t("texts.submit")}
         </button>

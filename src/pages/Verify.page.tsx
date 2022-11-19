@@ -56,19 +56,46 @@ const Verify = () => {
 
   return (
     state && (
-      <div className="h-screen bg-white py-24 px-3 mt-48">
-        <div className="container mx-auto">
-          <div className="max-w-sm mx-auto md:max-w-lg">
-            <div className="w-full">
+      <div className="bg-white dark:bg-gray-900">
+        <div className="flex justify-center h-screen">
+          <div
+            className="hidden bg-cover lg:block lg:w-2/3"
+            style={{
+              backgroundImage: `url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)`,
+            }}
+          >
+            <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+              <div>
+                <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-900">
+                  Namaste!
+                </h2>
+
+                <p className="max-w-xl mt-3 text-gray-300">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
+                  autem ipsa, nulla laboriosam dolores, repellendus perferendis
+                  libero suscipit nam temporibus molestiae
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+            <div className="flex-1">
+              <div className="text-center">
+                <h2 className="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-900">
+                  {$t("texts.verify-email")}
+                </h2>
+
+                <p className="mt-3 text-gray-500 dark:text-gray-300">
+                  {$t("texts.enter-otp-received")}
+                </p>
+              </div>
+
               <form
                 onSubmit={handleSubmit}
-                className="bg-blue-300 h-80 py-4 rounded text-center"
+                className="py-4 rounded text-center"
               >
-                <h1 className="text-2xl font-bold">
-                  {$t("texts.verify-email")}
-                </h1>
                 <div className="flex flex-col mt-4">
-                  <span>{$t("texts.enter-otp-received")}</span>
                   <span className="font-bold">
                     {state.email.replace(
                       /(\w{2})[\w.-]+@([\w.]+\w)/,
@@ -127,8 +154,16 @@ const Verify = () => {
                 </div>
                 <div className="flex justify-center text-center mt-5">
                   <button
+                    onClick={() => {
+                      navigate("/auth/login");
+                    }}
+                    className="w-1/3 mx-3 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red-500 rounded-md hover:bg-red-400 focus:outline-none focus:bg-red-400 focus:ring focus:ring-red-300 focus:ring-opacity-50"
+                  >
+                    {$t("texts.cancel")}
+                  </button>
+                  <button
                     type="submit"
-                    className="inline-block px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+                    className="w-1/3 mx-3 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                   >
                     {$t("texts.verify")}
                   </button>

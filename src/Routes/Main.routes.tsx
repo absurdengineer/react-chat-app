@@ -10,6 +10,8 @@ import Login from "../pages/Login.page";
 import NotFound from "../pages/NotFound.page";
 import Profile from "../pages/Profile.page";
 import Register from "../pages/Register.page";
+import ResetPassword from "../pages/ResetPassword.page";
+import Test from "../pages/Test.page";
 import Verify from "../pages/Verify.page";
 
 const MainRoutes = () => {
@@ -35,6 +37,12 @@ const MainRoutes = () => {
             <UnAuthenticatedRoute auth={auth} outlet={<ForgotPassword />} />
           }
         />
+        <Route
+          path="reset-password"
+          element={
+            <UnAuthenticatedRoute auth={auth} outlet={<ResetPassword />} />
+          }
+        />
         <Route index element={<Navigate to="/auth/login" />} />
         <Route path="*" element={<Navigate to="/auth/login" />} />
       </Route>
@@ -49,6 +57,7 @@ const MainRoutes = () => {
         />
         <Route index element={<Navigate to="/app/dashboard" />} />
       </Route>
+      <Route path="/test" element={<Test />} />
       <Route path="/not-found" element={<NotFound />} />
       <Route index element={<Navigate to="/app/dashboard" />} />
       <Route path="*" element={<Navigate to="/not-found" />} />

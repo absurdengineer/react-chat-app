@@ -2,29 +2,47 @@ import ForgotPasswordForm from "../components/ForgotPasswordForm.component";
 
 const ForgotPassword = () => {
   return (
-    <section className="h-screen">
-      <div className="px-6 h-full text-gray-800">
-        <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
-          <div className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0">
-            <img
-              src="https://img.freepik.com/premium-vector/forgot-password-account-login-web-page-protection-security-key-access-system-smartphone-computer-flat-vector-illustration_2175-1396.jpg?w=2000"
-              className="w-full"
-              alt="ForgotPassword"
-            />
-          </div>
-          <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-            <div className="hero container max-w-screen-lg mx-auto pb-10">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4IVkhcVJpjizWZRNBr666ih_JbFQeVKwugXMLNEKD3I7lhAsauKLHpABvkMOIkPI_Q0g&usqp=CAU"
-                className="mx-auto w-48"
-                alt="ForgotPassword"
-              />
+    <div className="bg-white dark:bg-gray-900">
+      <div className="flex justify-center h-screen">
+        <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+          <div className="flex-1">
+            <div className="text-center">
+              <h2 className="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-900">
+                Forgot Password?
+              </h2>
+
+              <p className="mt-3 text-gray-500 dark:text-gray-300">
+                Enter email to find account
+              </p>
             </div>
-            <ForgotPasswordForm />
+
+            <div className="mt-8">
+              <ForgotPasswordForm />
+            </div>
+          </div>
+        </div>
+        <div
+          className="hidden bg-cover lg:block lg:w-2/3"
+          style={{
+            backgroundImage: `url(https://i.pcmag.com/imagery/roundups/02HDufdqeRUDu3tl0NnY2qZ-2..v1649351854.jpg)`,
+          }}
+        >
+          <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+            <div>
+              <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-900">
+                Namaste!
+              </h2>
+
+              <p className="max-w-xl mt-3 text-gray-300">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
+                autem ipsa, nulla laboriosam dolores, repellendus perferendis
+                libero suscipit nam temporibus molestiae
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
