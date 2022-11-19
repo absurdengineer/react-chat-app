@@ -60,7 +60,6 @@ const RegisterForm = () => {
     if (validateInput()) return toast.error("Validation Error");
     try {
       const resp = await register(formData);
-      console.log(resp);
       navigate("/auth/verify", {
         state: {
           id: resp.data.data.id,

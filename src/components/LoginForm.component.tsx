@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../contexts/Auth.context";
 import { LocaleContext } from "../contexts/Locale.context";
+import httpService from "../services/http.service";
 import {
   HandleChange,
   HandleSubmit,
@@ -55,26 +56,30 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit: HandleSubmit = (event) => {
+  const handleSubmit: HandleSubmit = async (event) => {
     toast.dismiss();
     event.preventDefault();
     if (validateInput()) return toast.error("Validation Error Occured");
-    setAuth({
-      type: "LOGIN",
-      payload: {
-        data: {
-          token:
-            "dngkwigr82t78r3mg28rmg789xmg3q2mgxg9m9rmgx389mgxq28mg987.7xy23m9782n36xfg97126m6394fr67f127f96fm4x379fm44.473y789mg8cxt894m36rgxc4g239txr467fn4rxr76fn4r67r48",
-          user: {
-            id: "56675-g7ut3eu3h7-e3huy837e-nuy73",
-            name: "Md Dilshad Alam",
-            email: "mddalam1@gmail.com",
-            username: "webformulator",
-          },
+    try {
+      const { identifier, password } = formData;
+      const { data } = await httpService.post(`/auth/login`, {
+        identifier,
+        password,
+      });
+      setAuth({
+        type: "LOGIN",
+        payload: {
+          data: data.data,
+          rememberMe: formData.rememberMe,
         },
-        rememberMe: formData.rememberMe,
-      },
-    });
+      });
+    } catch (error: any) {
+      if (!error.response) return toast.error($t("errors.network-server-down"));
+      if (error.response.status < 500)
+        return toast.error($t(`codes.${error.response?.data?.code}`));
+      toast.error($t("errors.internal-server-error"));
+      console.log(error.response);
+    }
   };
 
   return (
@@ -110,11 +115,11 @@ const LoginForm = () => {
             className="form-check-label inline-block text-gray-800"
             htmlFor="rememberMe"
           >
-            Remember me
+            {$t("texts.remember-me")}
           </label>
         </div>
         <Link className="text-gray-800" to="/auth/forgot-password">
-          Forgot password?
+          {$t("texts.forgot-password")}?
         </Link>
       </div>
 
@@ -123,15 +128,15 @@ const LoginForm = () => {
           type="submit"
           className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
         >
-          Login
+          {$t("texts.login")}
         </button>
         <p className="text-sm font-semibold mt-2 pt-1 mb-0">
-          Don't have an account?
+          {$t("texts.dont-have-account")}?
           <Link
             className="ml-1 text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
             to="/auth/register"
           >
-            Register
+            {$t("texts.register")}
           </Link>
         </p>
       </div>

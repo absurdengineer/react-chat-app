@@ -26,10 +26,9 @@ const Verify = () => {
   useEffect(() => {
     if (!state) {
       toast.error("Nothing to verify");
-      console.log("data");
       navigate("/auth/login");
     }
-  }, []);
+  });
 
   const handleSubmit: HandleSubmit = async (event) => {
     toast.dismiss();
@@ -43,7 +42,7 @@ const Verify = () => {
       formData.sixth;
     if (otp.length < 6) return toast.error("Please fill the otp first");
     try {
-      const resp = await verifyUser({ id: state.id, code: parseInt(otp) });
+      await verifyUser({ id: state.id, code: parseInt(otp) });
       toast.success("User Verified Successfully!");
       navigate("/auth/login");
     } catch (error: any) {

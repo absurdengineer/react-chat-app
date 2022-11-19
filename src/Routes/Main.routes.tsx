@@ -5,6 +5,7 @@ import UnAuthenticatedRoute from "../components/UnAuthenticatedRoute.component";
 import { AuthContext } from "../contexts/Auth.context";
 import AuthLayout from "../layouts/Auth.layout";
 import Dashboard from "../pages/Dashboard.page";
+import ForgotPassword from "../pages/ForgotPassword";
 import Login from "../pages/Login.page";
 import NotFound from "../pages/NotFound.page";
 import Profile from "../pages/Profile.page";
@@ -27,6 +28,12 @@ const MainRoutes = () => {
         <Route
           path="verify"
           element={<UnAuthenticatedRoute auth={auth} outlet={<Verify />} />}
+        />
+        <Route
+          path="forgot-password"
+          element={
+            <UnAuthenticatedRoute auth={auth} outlet={<ForgotPassword />} />
+          }
         />
         <Route index element={<Navigate to="/auth/login" />} />
         <Route path="*" element={<Navigate to="/auth/login" />} />

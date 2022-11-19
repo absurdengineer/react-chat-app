@@ -7,7 +7,8 @@ export interface User {
 
 export interface Auth {
   user: User;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface RegisterData {
@@ -20,4 +21,8 @@ export interface RegisterData {
 export interface VerifyData {
   id: string;
   code: number;
+}
+
+export interface ForgotPassword {
+  email: string;
 }

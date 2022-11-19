@@ -9,7 +9,7 @@ export const AuthContext = createContext<{
 }>({ auth: null, setAuth: null });
 const authData: Auth | null = getAuth();
 
-const AuthContextProvider = (props: ContextProps) => {
+const AuthContextProvider = ({ children }: ContextProps) => {
   const authReducer = (state: any, action: any) => {
     switch (action.type) {
       case "LOGIN":
@@ -26,7 +26,7 @@ const AuthContextProvider = (props: ContextProps) => {
 
   return (
     <AuthContext.Provider value={{ auth, setAuth: dispatch }}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 };
