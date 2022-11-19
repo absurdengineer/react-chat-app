@@ -52,7 +52,7 @@ const MainRoutes = () => {
           element={<AuthenticatedRoute auth={auth} outlet={<Dashboard />} />}
         />
         <Route
-          path="profile"
+          path="users/:id"
           element={<AuthenticatedRoute auth={auth} outlet={<Profile />} />}
         />
         <Route index element={<Navigate to="/app/dashboard" />} />

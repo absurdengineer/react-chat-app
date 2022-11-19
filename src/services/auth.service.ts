@@ -49,6 +49,10 @@ export const resetPassword = (data: ResetPasswordData) => {
   return httpService.post(`/auth/reset-password`, data);
 };
 
+export const getProfile = () => {
+  return httpService.get("/auth/profile");
+};
+
 export const logout = (): void => {
   removeLocalData(authKey);
   removeSessionData(authKey);
