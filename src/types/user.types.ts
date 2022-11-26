@@ -3,6 +3,7 @@ export interface User {
   name: string;
   email: string;
   username: string;
+  profilePic: string;
 }
 
 export interface Auth {

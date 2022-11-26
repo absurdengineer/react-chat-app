@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import FormInput from "../components/FormInput.component";
 import OtpInput from "../components/OtpInput.component";
 import { LocaleContext } from "../contexts/Locale.context";
-import { resetPassword, verifyUser } from "../services/auth.service";
+import { resetPassword } from "../services/auth.service";
 import { HandleChange, HandleSubmit } from "../types/functions.types";
 
 const ResetPassword = () => {

@@ -9,7 +9,6 @@ const Dropdown = ({
   closeOnClick = true,
 }: DropdownProps) => {
   const [open, setOpen] = useState(false);
-  const menu = useRef(null);
 
   const handleOptionClick = (newValue: string) => {
     if (!(value === newValue)) handleClick(newValue);
@@ -17,7 +16,7 @@ const Dropdown = ({
   };
 
   return (
-    <div className="relative inline-block text-left" ref={menu}>
+    <div className="relative inline-block text-left">
       <div>
         <button
           type="button"

@@ -3,15 +3,16 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import AuthenticatedRoute from "../components/AuthenticatedRoute.component";
 import UnAuthenticatedRoute from "../components/UnAuthenticatedRoute.component";
 import { AuthContext } from "../contexts/Auth.context";
+import AppLayout from "../layouts/App.layout";
 import AuthLayout from "../layouts/Auth.layout";
 import Dashboard from "../pages/Dashboard.page";
 import ForgotPassword from "../pages/ForgotPassword";
 import Login from "../pages/Login.page";
 import NotFound from "../pages/NotFound.page";
-import Profile from "../pages/Profile.page";
+import User from "../pages/User.page";
 import Register from "../pages/Register.page";
 import ResetPassword from "../pages/ResetPassword.page";
-import Test from "../pages/Test.page";
+import Users from "../pages/Users.page";
 import Verify from "../pages/Verify.page";
 
 const MainRoutes = () => {
@@ -46,18 +47,21 @@ const MainRoutes = () => {
         <Route index element={<Navigate to="/auth/login" />} />
         <Route path="*" element={<Navigate to="/auth/login" />} />
       </Route>
-      <Route path="/app">
+      <Route path="/app" element={<AppLayout />}>
         <Route
           path="dashboard"
           element={<AuthenticatedRoute auth={auth} outlet={<Dashboard />} />}
         />
         <Route
           path="users/:id"
-          element={<AuthenticatedRoute auth={auth} outlet={<Profile />} />}
+          element={<AuthenticatedRoute auth={auth} outlet={<User />} />}
+        />
+        <Route
+          path="users/"
+          element={<AuthenticatedRoute auth={auth} outlet={<Users />} />}
         />
         <Route index element={<Navigate to="/app/dashboard" />} />
       </Route>
-      <Route path="/test" element={<Test />} />
       <Route path="/not-found" element={<NotFound />} />
       <Route index element={<Navigate to="/app/dashboard" />} />
       <Route path="*" element={<Navigate to="/not-found" />} />

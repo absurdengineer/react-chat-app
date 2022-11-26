@@ -23,7 +23,7 @@ const NotFound = () => {
           </button>
         </div>
         <div className="max-w-lg">
-          <img src="https://i.ibb.co/ck1SGFJ/Group.png" />
+          <img src="https://i.ibb.co/ck1SGFJ/Group.png" alt="404" />
         </div>
       </div>
     </div>

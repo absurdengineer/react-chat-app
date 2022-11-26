@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/Auth.context";
 import { LocaleContext } from "../contexts/Locale.context";
 import { getProfile } from "../services/auth.service";
+import { getUser } from "../services/user.service";
 
-const Profile = () => {
+const User = () => {
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -25,23 +26,18 @@ const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      if (id == "me") {
-        const { data } = await getProfile();
-        setUser(data.data);
-        const date = new Date(data.data.createdOn);
-        setSince({
-          day: date.getDate(),
-          month: date.getMonth(),
-          year: date.getFullYear(),
-        });
-      }
+      let res;
+      if (id === "me") res = await getProfile();
+      else res = await getUser(id);
+      setUser(res.data.data);
+      const date = new Date(res.data.data.createdOn);
+      setSince({
+        day: date.getDate(),
+        month: date.getMonth(),
+        year: date.getFullYear(),
+      });
     })();
-  }, []);
-
-  const joinedOn = () => {
-    const date = new Date(user.createdOn);
-    return date.getMonth();
-  };
+  }, [id]);
 
   return (
     <div className="p-16">
@@ -92,10 +88,24 @@ const Profile = () => {
             </div>
           </div>
           <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
-            <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+            <button
+              disabled={user.id === auth?.user.id}
+              className={`${
+                user.id === auth?.user.id
+                  ? "disabled:opacity-75 disabled:hover:-translate-y-0 disabled:hover:bg-blue-400 cursor-not-allowed"
+                  : ""
+              } text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5`}
+            >
               Connect
             </button>
-            <button className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+            <button
+              disabled={user.id === auth?.user.id}
+              className={`${
+                user.id === auth?.user.id
+                  ? "disabled:opacity-75 disabled:hover:-translate-y-0 disabled:hover:bg-gray-700 cursor-not-allowed"
+                  : ""
+              } text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5`}
+            >
               Message
             </button>
           </div>
@@ -121,4 +131,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default User;
